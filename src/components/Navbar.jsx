@@ -9,10 +9,9 @@ function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const [loggedIn,setLogin]=useState(false);
+  const [isloggedIn,setLogin]=useState(false);
   const isLogIn = () =>{
-    if(document.cookie.includes('session_token=')) setLogin(true);
-    else setLogin(false)
+    setLogin(document.cookie.includes("token="))
   }
   // An array of navigation items to make the component easily scalable
   const navItems = [
@@ -23,7 +22,7 @@ function Navbar() {
   ];
 
   return (
-    <nav className="bg-gray-800 text-white p-4">
+    <nav className="bg-black shadow-lg text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo/Brand Name */}
         <a href="#" className="text-2xl font-bold tracking-tight">
@@ -37,7 +36,7 @@ function Navbar() {
               {item.name}
             </a>
           ))}
-          {document.cookie.includes("token=")?<a href="/" onClick={handleLogOut} className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full">LogOut</a>:
+          {isloggedIn?<a href="/" onClick={handleLogOut} className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full">LogOut</a>:
             <a href="/Login" className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full">Login</a>
           }
     
@@ -65,7 +64,7 @@ function Navbar() {
                 {item.name}
               </a>
             ))}
-            {document.cookie.includes("token=")?<a href="" className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full" onClick={toggleMenu}>LogOut</a>:
+            {isloggedIn?<a href="" className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full" onClick={toggleMenu}>LogOut</a>:
             <a href="/Login" className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full" onClick={toggleMenu} >Login</a>
             }
           </div>

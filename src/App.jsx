@@ -11,7 +11,7 @@ function App() {
       <div className="flex">
         <div className="flex-1">
           <Navbar /> {/* Always visible */}
-          <div className="p-4 bg-gray-900 h-screen ">
+          <div className="p-4 bg-gradient-to-b from-black to-slate-900 min-h-screen ">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
