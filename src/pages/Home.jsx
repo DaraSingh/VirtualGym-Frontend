@@ -13,7 +13,7 @@ function Home() {
             Unleash your full potential with a platform designed for serious fitness.
           </p>
           <a
-            href="/login"
+            href="/signup"
             className="inline-block bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
           >
             Start Your Free Trial

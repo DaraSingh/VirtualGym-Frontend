@@ -36,15 +36,15 @@ function Navbar() {
               {item.name}
             </a>
           ))}
-          {isloggedIn?<a href="/" onClick={handleLogOut} className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full">LogOut</a>:
-            <a href="/Login" className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full">Login</a>
+          {isloggedIn?<a href="/" onClick={handleLogOut} className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold px-4 py-2 rounded-full">LogOut</a>:
+            <a href="/Login" className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full">Login</a>
           }
     
         </div>
 
         {/* Mobile menu button */}
         <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-center rounded-md">
+          <button onClick={toggleMenu} className="text-center rounded-md text-3xl">
            {isMenuOpen?"X":" ⠇ "}
           </button>
         </div>
@@ -64,8 +64,8 @@ function Navbar() {
                 {item.name}
               </a>
             ))}
-            {isloggedIn?<a href="" className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full" onClick={toggleMenu}>LogOut</a>:
-            <a href="/Login" className="bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2 rounded-full" onClick={toggleMenu} >Login</a>
+            {isloggedIn?<a href="" className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full" onClick={toggleMenu}>LogOut</a>:
+            <a href="/Login" className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full" onClick={toggleMenu} >Login</a>
             }
           </div>
         </div>
