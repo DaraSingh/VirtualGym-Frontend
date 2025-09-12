@@ -2,14 +2,14 @@ import { React, useState } from "react";
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    fullname: "",
+    name: "",
     email: "",
     password: "",
   });
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-        const response=await fetch("http://localhost:3000/api/register",{
+        const response=await fetch("http://localhost:3000/register",{
         method:"Post",
         headers:{
             "Content-Type": "application/json",
@@ -17,16 +17,17 @@ function SignUp() {
         body:JSON.stringify(formData)
     })
     const data=await response.json()
-    console.log("Success:",data)
+    // console.log(data)
+    if(data) alert(data.message)
+    
+    // console.log("Success:",data)
     }catch(err){
         console.log("Error: ",err)
-    }
-
-    
+    } 
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(formData)
+    // console.log(formData)
     setFormData({
       ...formData,
       [name]: value,
@@ -41,15 +42,16 @@ function SignUp() {
         <form onSubmit={handleSubmit}>
           <div className="pb-4 mb-2">
             <label className="mb-2" htmlFor="name">
-              Full Name
+              Your Name
             </label>
             <input
               id="name"
-              name="fullname"
+              name="name"
               onChange={handleChange}
               className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
               type="text"
               placeholder="Your Name"
+              required
             />
           </div>
           <div className="pb-4 mb-2">
@@ -63,6 +65,7 @@ function SignUp() {
               className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
               type="email"
               placeholder="you@your.com"
+              required
             />
           </div>
           <div className="pb-4 mb-2">
@@ -76,6 +79,8 @@ function SignUp() {
               className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
               type="password"
               placeholder="••••••••"
+              minLength={8}
+              required
             />
           </div>
           <div className="text-center">
@@ -87,6 +92,9 @@ function SignUp() {
             </button>
           </div>
         </form>
+        <div className="py-2 px-4 text-center">
+        <a href="login" >already have an account?</a>
+        </div>
       </div>
     </div>
   );
