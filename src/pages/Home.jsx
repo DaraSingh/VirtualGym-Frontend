@@ -1,6 +1,7 @@
 import React from 'react'
 function Home() {
   return (
+    
     <div className="min-h-screen text-white font-sans">
       <div className="container mx-auto p-4 flex flex-col items-center justify-center">
         {/* Hero Section */}

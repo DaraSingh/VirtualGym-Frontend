@@ -5,8 +5,6 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <Router>
       <div className="flex">

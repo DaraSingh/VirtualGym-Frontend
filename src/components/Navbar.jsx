@@ -1,24 +1,49 @@
-import { useState } from "react";
-import React from 'react'
+import { useEffect, useState } from "react";
+import React from "react";
 
 function Navbar() {
-   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Function to toggle the mobile menu state
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const [isloggedIn,setLogin]=useState(false);
-  const isLogIn = () =>{
-    setLogin(document.cookie.includes("token="))
-  }
+  const [isloggedIn, setLogin] = useState(false);
+  useEffect((e) => {
+    const CheckAuth = async() => {
+      const res=await fetch("http://localhost:3000/check_auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include"
+      });
+      const data=await res.json()
+      setLogin(data.isLoggedIn)
+      // setLogin(document.cookie.includes("token="))  // use this if not using httpOnly request (less Secure)
+    };
+    CheckAuth();
+  }, []);
+  const handleLogOut = async(e) => {
+    e.preventDefault()
+    const res=await fetch("http://localhost:3000/logout",{
+      method:"get",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      credentials:"include"
+    })
+    const data=await res.json();
+    alert(data.message)
+    window.location.reload();
+  };
   // An array of navigation items to make the component easily scalable
   const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '#' },
-    { name: 'Services', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: "Home", href: "/" },
+    { name: "About", href: "#" },
+    { name: "Services", href: "#" },
+    { name: "Contact", href: "#" },
   ];
 
   return (
@@ -32,20 +57,39 @@ function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (
-            <a key={item.name} href={item.href} className="hover:text-gray-300 py-2">
+            <a
+              key={item.name}
+              href={item.href}
+              className="hover:text-gray-300 py-2"
+            >
               {item.name}
             </a>
           ))}
-          {isloggedIn?<a href="/" onClick={handleLogOut} className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold px-4 py-2 rounded-full">LogOut</a>:
-            <a href="/Login" className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full">Login</a>
-          }
-    
+          {isloggedIn ? (
+            <a
+              href="/"
+              onClick={handleLogOut}
+              className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold px-4 py-2 rounded-full"
+            >
+              LogOut
+            </a>
+          ) : (
+            <a
+              href="/Login"
+              className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full"
+            >
+              Login
+            </a>
+          )}
         </div>
 
         {/* Mobile menu button */}
         <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-center rounded-md text-3xl">
-           {isMenuOpen?"X":" ⠇ "}
+          <button
+            onClick={toggleMenu}
+            className="text-center rounded-md text-2xl"
+          >
+            {isMenuOpen ? "X" : " ⠇ "}
           </button>
         </div>
       </div>
@@ -64,13 +108,27 @@ function Navbar() {
                 {item.name}
               </a>
             ))}
-            {isloggedIn?<a href="" className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full" onClick={toggleMenu}>LogOut</a>:
-            <a href="/Login" className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full" onClick={toggleMenu} >Login</a>
-            }
+            {isloggedIn ? (
+              <a
+                href="/"
+                className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full"
+                onClick={handleLogOut}
+              >
+                LogOut
+              </a>
+            ) : (
+              <a
+                href="/Login"
+                className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full"
+                onClick={toggleMenu}
+              >
+                Login
+              </a>
+            )}
           </div>
         </div>
       )}
     </nav>
-  )
+  );
 }
-export default Navbar
+export default Navbar;

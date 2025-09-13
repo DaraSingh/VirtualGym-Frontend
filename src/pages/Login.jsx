@@ -1,19 +1,31 @@
 import {React , useState} from 'react'
-
+import { useNavigate } from 'react-router-dom'
 function Login() {
+    const navigate=useNavigate()
     const [loginData,setLoginData]=useState({
         email:"",
         password:""
     })
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        const response=await fetch("/https://localhost:3000/login",{
+        const response=await fetch("http://localhost:3000/login",{
             method:"Post",
             headers:{
                 "Content-Type":"application/json"
             },
-            body:JSON.stringify(loginData)
+            body:JSON.stringify(loginData),
+            credentials:'include'
         })
+        if(response.ok){
+            const data=await response.json()
+            alert(data.message)
+            navigate("/")
+            window.location.reload();
+        }else{
+            const data=await response.json()
+            alert(data.message)
+        }
+        
     }
     const handleChange=(e)=>{
         const {name,value}=e.target
@@ -21,7 +33,7 @@ function Login() {
             ...loginData,
             [name]:value
         })
-        console.log(loginData)
+        // console.log(loginData)
     }
   return (
     <div className="container mx-auto p-4 flex flex-col items-center justify-center text-gray-500">
