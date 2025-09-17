@@ -1,7 +1,7 @@
 import React from 'react'
-function Home() {
+function Home(props) {
   return (
-    
+
     <div className="min-h-screen text-white font-sans">
       <div className="container mx-auto p-4 flex flex-col items-center justify-center">
         {/* Hero Section */}
@@ -13,12 +13,29 @@ function Home() {
           <p className="text-xl md:text-2xl max-w-2xl mx-auto text-gray-200 mb-8">
             Unleash your full potential with a platform designed for serious fitness.
           </p>
+          {props.isloggedIn?
+            <div className='flex flex-col space-y-8 items-center'>
+            <a
+            href="/workout"
+            className=" w-70 inline-block bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
+            Starts Workout
+          </a>
           <a
+            href="/generatePlan"
+            className="w-70 inline-block bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
+            Generate New Plan
+          </a>
+          </div>
+          :<a
             href="/signup"
             className="inline-block bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
           >
             Start Your Free Trial
           </a>
+
+          }
         </section>
 
         {/* Features Section */}

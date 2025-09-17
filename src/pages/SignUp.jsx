@@ -1,6 +1,7 @@
 import { React, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 function SignUp() {
+  const navigate=useNavigate()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -10,7 +11,7 @@ function SignUp() {
     e.preventDefault();
     try{
         const response=await fetch("http://localhost:3000/register",{
-        method:"Post",
+        method:"POST",
         headers:{
             "Content-Type": "application/json",
         },
@@ -19,7 +20,7 @@ function SignUp() {
     const data=await response.json()
     // console.log(data)
     if(data) alert(data.message)
-    
+    navigate('/login')
     // console.log("Success:",data)
     }catch(err){
         console.log("Error: ",err)

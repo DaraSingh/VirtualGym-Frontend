@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import React from "react";
 
-function Navbar() {
+function Navbar(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  // console.log(props);
   // Function to toggle the mobile menu state
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const [isloggedIn, setLogin] = useState(false);
+  // const [isloggedIn, setLogin] = useState(false);
   useEffect((e) => {
     const CheckAuth = async() => {
       const res=await fetch("http://localhost:3000/check_auth", {
@@ -20,7 +20,7 @@ function Navbar() {
         credentials: "include"
       });
       const data=await res.json()
-      setLogin(data.isLoggedIn)
+      props.setLogin(data.isLoggedIn)
       // setLogin(document.cookie.includes("token="))  // use this if not using httpOnly request (less Secure)
     };
     CheckAuth();
@@ -41,9 +41,9 @@ function Navbar() {
   // An array of navigation items to make the component easily scalable
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "About", href: "#" },
+    { name: "About", href: "/about" },
     { name: "Services", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Contact", href: "Contact" },
   ];
 
   return (
@@ -65,7 +65,7 @@ function Navbar() {
               {item.name}
             </a>
           ))}
-          {isloggedIn ? (
+          {props.isloggedIn ? (
             <a
               href="/"
               onClick={handleLogOut}
@@ -108,7 +108,7 @@ function Navbar() {
                 {item.name}
               </a>
             ))}
-            {isloggedIn ? (
+            {props.isloggedIn ? (
               <a
                 href="/"
                 className="bg-fuchsia-600 hover:bg-fuchsia-700 font-bold px-4 py-2 rounded-full"
