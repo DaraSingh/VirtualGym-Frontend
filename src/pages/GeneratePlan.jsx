@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function GeneratePlan() {
+function GeneratePlan(props) {
+    const [genStatus,setGenStatus]=useState(false);
   const [userData, setUserData] = useState({
     // name:"",
     // age:"",
@@ -32,10 +33,14 @@ function GeneratePlan() {
     };
     GenUser();
   }, []);
+  if(!props.isloggedIn){
+    return (<div className="text-white" >Please Login First</div>)
+  }
   const handleSubmit = async(e) => {
     e.preventDefault()
     const Proceed=window.confirm("Your Previous Plan And Details will be erase,Are You Sure You want to proceed");
     if(Proceed){
+        setGenStatus(true)
         const res=await fetch("http://localhost:3000/generate",{
             method:"POST",
             headers:{
@@ -46,13 +51,17 @@ function GeneratePlan() {
 
         })
         const data=await res.json();
+        setGenStatus(false)
+        console.log("Plan is Being Generated")
         if(res.ok){
             alert(data.message)
             navigate("/")
+            
         }
         else {
             alert(data.message)
         }
+        
         // console.log(data)
     }
   };
@@ -66,8 +75,10 @@ function GeneratePlan() {
     // console.log(e.target)
   };
   return (
-    <div className="container mx-auto p-4 flex flex-col items-center justify-center text-gray-500">
-      <div className="bg-gray-800 p-8 md:p-12 rounded-lg shadow-2xl w-full max-w-sm">
+    
+    <div className="container mx-auto p-4 flex flex-col items-center justify-center text-gray-400">
+    {!genStatus?
+      <div className="bg-gradient-to-b bg-gradient-to-br from-purple-900 via-black to-purple-900 p-8 md:p-12 rounded-lg shadow-2xl w-full max-w-sm">
         <h2 className="text-3xl text-white font-bold text-center mb-6">
           Generate New Plan
         </h2>
@@ -79,7 +90,7 @@ function GeneratePlan() {
             name="name"
             id="name"
             onChange={handleChange}
-            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
             type="text"
             value={userData.name}
             placeholder=""
@@ -92,7 +103,7 @@ function GeneratePlan() {
             name="age"
             id="age"
             onChange={handleChange}
-            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
             type="Number"
             value={userData.age}
             placeholder=""
@@ -105,7 +116,7 @@ function GeneratePlan() {
             name="weight"
             id="weight"
             onChange={handleChange}
-            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
             type="Number"
             value={userData.weight}
             placeholder=""
@@ -118,7 +129,7 @@ function GeneratePlan() {
             name="height"
             id="height"
             onChange={handleChange}
-            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
             type="Number"
             value={userData.height}
             placeholder=""
@@ -131,7 +142,7 @@ function GeneratePlan() {
             name="otherInfo"
             id="otherInfo"
             onChange={handleChange}
-            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+            className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
             type="text"
             value={userData.otherInfo}
             placeholder=""
@@ -146,8 +157,10 @@ function GeneratePlan() {
           </div>
         </form>
       </div>
+      :<div className="text-green-400 text-2xl font-bold">Please Wait For Few Moments Your Plan is Getting Ready</div>
+    }
     </div>
-  );
+);
 }
 
 export default GeneratePlan;

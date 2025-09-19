@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import React from "react";
-
+import logo from "../assets/Logo.svg"
 function Navbar(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // console.log(props);
@@ -8,23 +8,6 @@ function Navbar(props) {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  // const [isloggedIn, setLogin] = useState(false);
-  useEffect((e) => {
-    const CheckAuth = async() => {
-      const res=await fetch("http://localhost:3000/check_auth", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include"
-      });
-      const data=await res.json()
-      props.setLogin(data.isLoggedIn)
-      // setLogin(document.cookie.includes("token="))  // use this if not using httpOnly request (less Secure)
-    };
-    CheckAuth();
-  }, []);
   const handleLogOut = async(e) => {
     e.preventDefault()
     const res=await fetch("http://localhost:3000/logout",{
@@ -42,16 +25,14 @@ function Navbar(props) {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Services", href: "#" },
-    { name: "Contact", href: "Contact" },
   ];
 
   return (
     <nav className="bg-black shadow-lg text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo/Brand Name */}
-        <a href="#" className="text-2xl font-bold tracking-tight">
-          MyBrand
+        <a href="/" className="text-2xl font-bold tracking-tight">
+          <img src={logo} alt="MyBrand" width="60" height="60" />
         </a>
 
         {/* Desktop Navigation */}

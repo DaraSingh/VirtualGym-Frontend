@@ -1,9 +1,11 @@
 import React, { useEffect ,useState} from "react";
 import { useNavigate } from "react-router-dom";
-function Workout() {
+function Workout(props) {
+    
     const [data, setUserData] = useState(null);
     const [currentIndex,setCurrentIndex]=useState(0);
     const navigate=useNavigate();
+    
     const handleClick=async()=>{
         const res=await fetch("http://localhost:3000/DoneToday",{
             method:"POST",
@@ -25,9 +27,17 @@ function Workout() {
             }
             
         }
+        else{
+            console.log("Error")
+        }
         
     }
+    
   useEffect(() => {
+    // if(!props.isloggedIn){
+    //     // alert("LogIn First")
+    //     navigate('/login')
+    // }
     window.speechSynthesis.cancel();
     const GenUser = async () => {
       const res = await fetch("http://localhost:3000/workout", {
@@ -44,9 +54,13 @@ function Workout() {
     };
     GenUser();
   }, []);
-  
+  if(!props.isloggedIn){
+        return(
+            <div className="text-white">Please Login First</div>
+        )
+    }
    if (!data) {
-    return <p className="text-center text-gray-500">Loading...</p>;
+    return <p className="text-center text-white">Please Generate a Plan First</p>;
   }
   const exercises = data.exercises;
   const currentExercise = exercises[currentIndex];
@@ -55,7 +69,7 @@ function Workout() {
       alert("Sorry, your browser does not support speech synthesis.");
       return;
     }
-
+    // const steps=exercises[currentIndex].steps
     // Stop any ongoing speech
 
     steps.forEach((step, i) => {
@@ -83,29 +97,30 @@ function Workout() {
     utterance.pitch = 1; // pitch
     utterance.lang = "en-US"; // language/voice
     speechSynthesis.speak(utterance);
-    speakSteps(currentExercise.steps)
+    // speakSteps(currentExercise.steps)
   };
   return (
     <div>
-    <div className="flex-1 flex flex-col items-center justify-center bg-gray-200 rounded-2xl shadow-lg p-6 mb-2">
+    {exercises.length?
+    <div className="flex-1 flex flex-col items-center justify-center rounded-2xl shadow-lg p-6 mb-2 text-white">
         <h1 className="text-2xl font-bold text-fuchsia-700 mb-4">
-          Day {data.day} - Exercise {currentIndex + 1} of {exercises.length}
+            Exercise {currentIndex + 1} of {exercises.length}
         </h1>
 
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">
+        <h2 className="text-xl font-semibold text-gray-200 mb-2">
           {currentExercise.name}
         </h2>
         
         {typeof currentExercise.reps === "number" ? (
-          <p className="text-lg text-gray-700">
+          <p className="text-lg text-gray-300">
             {currentExercise.sets} sets × {currentExercise.reps} reps
           </p>
         ) : currentExercise.duration > 0 ? (
-          <p className="text-lg text-gray-700">
+          <p className="text-lg text-gray-300">
             Duration: {currentExercise.duration}s
           </p>
         ) : (
-          <p className="text-lg text-gray-700">Reps: {currentExercise.reps}</p>
+          <p className="text-lg text-gray-300">Reps: {currentExercise.reps}</p>
         )}
 
         <p className="text-sm text-gray-500 mt-2">
@@ -151,9 +166,10 @@ function Workout() {
         </button>}
         </div>
       </div>
-    <div className="min-h-screen bg-gray-100 p-6">
+    :<div className="text-white">No Exercise Found For Today Kindly generate New Plan</div>}
+    <div className="min-h-screen p-6">
       {/* Header */}
-      <h1 className="text-3xl font-bold text-center text-fuchsia-700 mb-6">
+      <h1 className="text-3xl font-bold text-center text-fuchsia-500 mb-6">
         Day {data.day} Workout Plan
       </h1>
 
@@ -162,15 +178,15 @@ function Workout() {
         {data.exercises.map((exercise, idx) => (
           <div
             key={idx}
-            className="bg-white rounded-2xl shadow-md p-5 hover:shadow-lg transition"
+            className="bg-black/40 border border-white/10 rounded-2xl shadow-md p-5 hover:shadow-lg transition"
           >
             {/* Name */}
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            <h2 className="text-xl font-semibold text-gray-200 mb-2">
               {exercise.name}
             </h2>
 
             {/* Sets/Reps or Duration */}
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               {exercise.reps && typeof exercise.reps === "number"
                 ? `Sets: ${exercise.sets}, Reps: ${exercise.reps}`
                 : exercise.duration > 0
@@ -189,16 +205,16 @@ function Workout() {
             </p>
 
             {/* Equipment */}
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-400">
               Equipment: {exercise.equipment}
             </p>
 
             {/* Steps */}
             <details className="mt-3">
-              <summary className="cursor-pointer text-fuchsia-700 font-semibold">
+              <summary className="cursor-pointer text-fuchsia-300 font-semibold">
                 Steps
               </summary>
-              <ul className="list-disc list-inside text-sm text-gray-700 mt-2">
+              <ul className="list-disc list-inside text-sm text-gray-300 mt-2">
                 {exercise.steps.map((step, i) => (
                   <li key={i}>{step}</li>
                 ))}

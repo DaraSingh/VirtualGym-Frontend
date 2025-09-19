@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 function Home(props) {
   return (
 
@@ -43,24 +43,24 @@ function Home(props) {
           <h2 className="text-3xl font-bold text-center mb-10">Why Choose Us?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature Card 1 */}
-            <div className="bg-gray-800 p-6 rounded-lg shadow-xl text-center">
-              <h3 className="text-xl font-semibold mb-2">Guided Workouts</h3>
+            <div className="bg-gradient-br grom-black/40 via-purple-800 to-black/40 border border-white/10 p-6 rounded-lg shadow-xl text-center">
+              <h3 className="text-xl font-semibold mb-2">Personalized AI Workouts</h3>
               <p className="text-gray-400">
-                Follow our expert-led routines or create your own personalized sessions.
+                Tailored to your goals and preferences. Choose yoga, gym, or bodyweight exercises—your plan adapts to you.
               </p>
             </div>
             {/* Feature Card 2 */}
-            <div className="bg-gray-800 p-6 rounded-lg shadow-xl text-center">
-              <h3 className="text-xl font-semibold mb-2">Progress Tracking</h3>
+            <div className="bg-gradient-br grom-black/40 via-purple-800 to-black/40 border border-white/10 p-6 rounded-lg shadow-xl text-center">
+              <h3 className="text-xl font-semibold mb-2">No Expensive Equipment Needed</h3>
               <p className="text-gray-400">
-                Log your reps, sets, and personal bests to see real-time progress.
+               Stay fit without breaking the bank. All workouts use minimal or common equipment like mats, dumbbells, or resistance bands.
               </p>
             </div>
             {/* Feature Card 3 */}
-            <div className="bg-gray-800 p-6 rounded-lg shadow-xl text-center">
-              <h3 className="text-xl font-semibold mb-2">Community</h3>
+            <div className="bg-gradient-br grom-black/40 via-purple-800 to-black/40 border border-white/10 p-6 rounded-lg shadow-xl text-center">
+              <h3 className="text-xl font-semibold mb-2">Flexible & Diverse</h3>
               <p className="text-gray-400">
-                Connect with other athletes, share achievements, and stay motivated.
+                Never get bored. Switch between exercise types, from strength training to mobility or cardio, all customized for you.
               </p>
             </div>
           </div>

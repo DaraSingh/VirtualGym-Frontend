@@ -35,8 +35,8 @@ function SignUp() {
     });
   };
   return (
-    <div className="container mx-auto p-4 flex flex-col items-center justify-center text-gray-500">
-      <div className="bg-gray-800 p-8 md:p-12 rounded-lg shadow-2xl w-full max-w-sm">
+    <div className="container mx-auto p-4 flex flex-col items-center justify-center text-gray-400">
+      <div className="bg-gradient-to-b bg-gradient-to-br from-purple-900 via-black to-purple-900 p-8 md:p-12 rounded-lg shadow-2xl w-full max-w-sm">
         <h2 className="text-3xl text-white font-bold text-center mb-6">
           Register
         </h2>
@@ -49,7 +49,7 @@ function SignUp() {
               id="name"
               name="name"
               onChange={handleChange}
-              className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+              className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
               type="text"
               placeholder="Your Name"
               required
@@ -63,7 +63,7 @@ function SignUp() {
               id="email"
               name="email"
               onChange={handleChange}
-              className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+              className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
               type="email"
               placeholder="you@your.com"
               required
@@ -77,7 +77,7 @@ function SignUp() {
               name="password"
               id="password"
               onChange={handleChange}
-              className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-gray-600"
+              className="border w-full text-xl rounded-md p-2 focus:outline-none focus:border-fuchsia-500 focus:text-gray-200 bg-black"
               type="password"
               placeholder="••••••••"
               minLength={8}
