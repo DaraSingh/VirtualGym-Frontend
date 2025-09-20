@@ -1,12 +1,44 @@
-# React + Vite
+# 🏋️ AI Virtual Gym
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <a href="https://aivirtualgym.netlify.app/" style="text-decoration: none; color: white; background: linear-gradient(90deg,#8e2de2,#4a00e0); padding: 12px 24px; border-radius: 12px; font-weight: bold; font-size: 18px;">
+    🚀 Visit Live Site
+  </a>
+</p>
 
-Currently, two official plugins are available:
+## 🚀 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**AI Virtual Gym** is a smart, **personalized workout web application** that generates **structured 10-day exercise plans** for users based on their stats and preferences. Users can **listen to exercise steps** for easy guidance and track their progress daily — all powered by **AI**!  
 
-## Expanding the ESLint configuration
+Frontend: **React + Vite** | Backend: **Node.js + Express + MongoDB** | AI: **Google Generative AI (Gemini API)**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✨ Features
+
+- 🔐 **Secure Authentication**: Register, login, and logout using JWT & cookies.  
+- 🤖 **AI-Powered Workout Plans**: Personalized, structured 10-day plans based on your stats.  
+- 🎧 **Voice Guidance**: Users can listen to step-by-step instructions for each exercise.  
+- ✅ **Daily Progress Tracking**: Mark exercises completed for each day and track your journey.  
+- 🌐 **Seamless Frontend & Backend Integration**: Deployed on Netlify + Render.  
+- 📱 **Responsive Design**: Works beautifully on desktop and mobile devices.  
+
+---
+
+## 🛠 Technologies Used
+
+| Frontend | Backend | AI | Deployment |
+|----------|---------|----|-----------|
+| React, Vite, Tailwind CSS, React Router | Node.js, Express, MongoDB, Mongoose, bcrypt, JWT | Google Generative AI | Netlify (frontend), Render (backend) |
+
+---
+
+## 💻 Installation
+
+### Backend
+
+1. Clone the repository:
+
+```bash
+git clone <your-backend-repo-url>
+cd backend
