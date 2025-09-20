@@ -1,3 +1,6 @@
+[![Backend](https://img.shields.io/badge/Backend-Node.js-blue)](https://github.com/DaraSingh/VirtualGym-Backend)
+
+
 # 🏋️ AI Virtual Gym
 
 <p align="center">
@@ -5,6 +8,7 @@
     🚀 Visit Live Site
   </a>
 </p>
+
 
 ## 🚀 Overview
 
