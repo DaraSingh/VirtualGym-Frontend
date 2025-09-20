@@ -8,10 +8,10 @@ import About from './pages/About'
 import GeneratePlan from './pages/GeneratePlan'
 import Workout from './pages/workout'
 function App() {
-  const [isloggedIn, setLogin] = useState(false);
+  const [isloggedIn, setLogin] = useState(true);
   useEffect((e) => {
       const CheckAuth = async() => {
-        const res=await fetch("http://localhost:3000/check_auth", {
+        const res=await fetch("https://virtualgym-backend.onrender.com/check_auth", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -21,11 +21,12 @@ function App() {
         const data=await res.json()
         // console.log(data.isLoggedIn)
         setLogin(data.isLoggedIn)
-        console.log(isloggedIn)
+        // console.log(isloggedIn)
         // setLogin(document.cookie.includes("token="))  // use this if not using httpOnly request (less Secure)
       };
       CheckAuth();
-    }, [isloggedIn]);
+    }, []);
+  
   // const [userData,setUserData]=useState({});
   return (
     <Router>

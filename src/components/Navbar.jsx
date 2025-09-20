@@ -10,7 +10,7 @@ function Navbar(props) {
   };
   const handleLogOut = async(e) => {
     e.preventDefault()
-    const res=await fetch("http://localhost:3000/logout",{
+    const res=await fetch("https://virtualgym-backend.onrender.com/logout",{
       method:"get",
       headers:{
         "Content-Type":"application/json"

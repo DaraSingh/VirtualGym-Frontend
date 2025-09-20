@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function GeneratePlan(props) {
     const [genStatus,setGenStatus]=useState(false);
+    const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState({
     // name:"",
     // age:"",
@@ -13,7 +14,10 @@ function GeneratePlan(props) {
   const navigate=useNavigate()
   useEffect(() => {
     const GenUser = async () => {
-      const res = await fetch("http://localhost:3000/GeneratePlan", {
+        try {
+            
+        
+      const res = await fetch("https://virtualgym-backend.onrender.com/GeneratePlan", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,6 +25,7 @@ function GeneratePlan(props) {
         credentials: "include",
       });
       const data = await res.json();
+
       setUserData({
         ...userData,
         name: data.name,
@@ -29,19 +34,27 @@ function GeneratePlan(props) {
         height: data.height,
         otherInfo: data.otherInfo,
       });
-      console.log(userData);
+      } catch (error) {
+            setLoading(false)
+        }finally{
+            setLoading(false)
+        }
+    //   console.log(userData);
     };
     GenUser();
   }, []);
   if(!props.isloggedIn){
-    return (<div className="text-white" >Please Login First</div>)
+    return (<div className="text-white font-bold text-2xl text-center" >Please Login First</div>)
+  }
+  if(loading){
+    return (<div className="text-white font-bold text-2xl text-center" >Loading....</div>)
   }
   const handleSubmit = async(e) => {
     e.preventDefault()
     const Proceed=window.confirm("Your Previous Plan And Details will be erase,Are You Sure You want to proceed");
     if(Proceed){
         setGenStatus(true)
-        const res=await fetch("http://localhost:3000/generate",{
+        const res=await fetch("https://virtualgym-backend.onrender.com/generate",{
             method:"POST",
             headers:{
                 "Content-Type": "application/json",
@@ -52,7 +65,7 @@ function GeneratePlan(props) {
         })
         const data=await res.json();
         setGenStatus(false)
-        console.log("Plan is Being Generated")
+        // console.log("Plan is Being Generated")
         if(res.ok){
             alert(data.message)
             navigate("/")
@@ -136,7 +149,7 @@ function GeneratePlan(props) {
           />
 
           <label className="mb-2" htmlFor="otherInfo">
-            Anything else You want to Share
+            Specification (if any)
           </label>
           <textarea
             name="otherInfo"

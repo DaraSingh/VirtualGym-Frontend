@@ -4,10 +4,11 @@ function Workout(props) {
     
     const [data, setUserData] = useState(null);
     const [currentIndex,setCurrentIndex]=useState(0);
+    const [loading, setLoading] = useState(true);
     const navigate=useNavigate();
     
     const handleClick=async()=>{
-        const res=await fetch("http://localhost:3000/DoneToday",{
+        const res=await fetch("https://virtualgym-backend.onrender.com/DoneToday",{
             method:"POST",
             header:{
                 "Content-Type":"application/json",
@@ -40,7 +41,8 @@ function Workout(props) {
     // }
     window.speechSynthesis.cancel();
     const GenUser = async () => {
-      const res = await fetch("http://localhost:3000/workout", {
+        try {
+            const res = await fetch("https://virtualgym-backend.onrender.com/workout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,18 +51,29 @@ function Workout(props) {
       });
         const newData = await res.json();
       
-      console.log(newData.plan)
+    //   console.log(newData.plan)
       setUserData(newData.plan);
+        } catch (error) {
+            setLoading(false)
+        }finally{
+            setLoading(false)
+        }
+      
     };
     GenUser();
   }, []);
+  
   if(!props.isloggedIn){
         return(
             <div className="text-white">Please Login First</div>
         )
     }
+    if(loading){
+    return (<div className="text-white font-bold text-2xl text-center" >Loading....</div>)
+  }
+
    if (!data) {
-    return <p className="text-center text-white">Please Generate a Plan First</p>;
+    return <div className="text-center text-white">Please Generate a Plan First </div>;
   }
   const exercises = data.exercises;
   const currentExercise = exercises[currentIndex];
